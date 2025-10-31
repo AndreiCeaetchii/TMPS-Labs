@@ -7,6 +7,28 @@ namespace UniversityBookingSystem.Demo;
 
 public abstract class ConsoleUI
 {
+    private static readonly Dictionary<string, Func<IUniversityFactory>> FactoryMap = new()
+    {
+        { "1", () => new TechUniversityFactory() },
+        { "2", () => new LiberalArtsFactory() },
+        { "3", () => new MedicalUniversityFactory() }
+    };
+
+    private static Booking CreateBookingFromTemplate(string choice, BookingDirector director,
+        BookingBuilder builder, IUniversityFactory factory)
+    {
+        var bookingCreators = new Dictionary<string, Func<Booking>>
+        {
+            { "1", () => director.CreateExamBooking(builder, factory, "A1") },
+            { "2", () => director.CreateSeminarBooking(builder, factory, "S1") },
+            { "3", () => director.CreateLabBooking(builder, factory, "L1") }
+        };
+
+        return bookingCreators.TryGetValue(choice, out var creator)
+            ? creator()
+            : director.CreateExamBooking(builder, factory, "A1");
+    }
+
     public static void Run()
     {
         Console.WriteLine("=== UniRoomBooker Demo (with Director) ===\n");
@@ -18,13 +40,9 @@ public abstract class ConsoleUI
         Console.Write("> ");
         var option = Console.ReadLine();
 
-        IUniversityFactory factory = option switch
-        {
-            "1" => new TechUniversityFactory(),
-            "2" => new LiberalArtsFactory(),
-            "3" => new MedicalUniversityFactory(),
-            _ => new TechUniversityFactory()
-        };
+        IUniversityFactory factory = FactoryMap.TryGetValue(option ?? "", out var factoryFunc)
+            ? factoryFunc()
+            : new TechUniversityFactory();
         
         var builder = new BookingBuilder();
         var director = new BookingDirector();
@@ -36,26 +54,7 @@ public abstract class ConsoleUI
         Console.Write("> ");
         var templateChoice = Console.ReadLine();
 
-        Booking booking;
-
-        switch (templateChoice)
-        {
-            case "1":
-                booking = director.CreateExamBooking(builder, factory, "A1");
-                break;
-
-            case "2":
-                booking = director.CreateSeminarBooking(builder, factory, "S1");
-                break;
-
-            case "3":
-                booking = director.CreateLabBooking(builder, factory, "L1");
-                break;
-
-            default:
-                booking = director.CreateExamBooking(builder, factory, "A1");
-                break;
-        }
+        Booking booking = CreateBookingFromTemplate(templateChoice ?? "", director, builder, factory);
 
         Console.WriteLine("\nBooking Created Successfully!");
         Console.WriteLine(booking);
