@@ -1,8 +1,7 @@
+using UniversityBookingSystem.Interfaces;
+
 namespace UniversityBookingSystem.Decorators;
 
-/// <summary>
-/// Concrete decorator that adds catering services to a booking.
-/// </summary>
 public class CateringDecorator : BookingDecorator
 {
     private readonly string _cateringType;

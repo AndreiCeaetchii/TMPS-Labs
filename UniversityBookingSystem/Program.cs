@@ -2,9 +2,6 @@
 
 Console.Title = "UniRoomBooker Demo";
 
-Console.WriteLine("═══════════════════════════════════════════════════════════════");
-Console.WriteLine("         UNIVERSITY BOOKING SYSTEM - DEMO SELECTOR");
-Console.WriteLine("═══════════════════════════════════════════════════════════════\n");
 Console.WriteLine("Select which demo to run:");
 Console.WriteLine("1. Creational Patterns Demo (Factory, Builder, Singleton, Director)");
 Console.WriteLine("2. Structural Patterns Demo (Decorator, Composite, Facade)");

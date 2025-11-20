@@ -1,9 +1,5 @@
-namespace UniversityBookingSystem.Composite;
+namespace UniversityBookingSystem.Interfaces;
 
-/// <summary>
-/// Component interface for the Composite pattern.
-/// Defines common operations for both individual rooms and room groups.
-/// </summary>
 public interface IRoomComponent
 {
     string GetCode();

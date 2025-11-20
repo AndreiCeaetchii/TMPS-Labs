@@ -3,24 +3,15 @@ using UniversityBookingSystem.Decorators;
 using UniversityBookingSystem.Entities;
 using UniversityBookingSystem.Facade;
 using UniversityBookingSystem.Factories;
+using UniversityBookingSystem.Interfaces;
 
 namespace UniversityBookingSystem.Demo;
 
-/// <summary>
-/// Demonstration class showcasing the three structural design patterns:
-/// 1. Decorator Pattern
-/// 2. Composite Pattern
-/// 3. Facade Pattern
-/// </summary>
 public static class StructuralPatternsDemo
 {
     public static void Run()
     {
         Console.Clear();
-        Console.WriteLine("╔════════════════════════════════════════════════════════════════╗");
-        Console.WriteLine("║     UNIVERSITY BOOKING SYSTEM - STRUCTURAL PATTERNS DEMO      ║");
-        Console.WriteLine("╚════════════════════════════════════════════════════════════════╝");
-        Console.WriteLine();
 
         // Ask user which demo to run
         Console.WriteLine("Select a demonstration:");
@@ -59,9 +50,6 @@ public static class StructuralPatternsDemo
 
     private static void DemonstrateDecoratorPattern()
     {
-        Console.WriteLine("═══════════════════════════════════════════════════════════════");
-        Console.WriteLine("              DECORATOR PATTERN DEMONSTRATION");
-        Console.WriteLine("═══════════════════════════════════════════════════════════════");
         Console.WriteLine("\nThe Decorator pattern allows adding responsibilities to objects");
         Console.WriteLine("dynamically without modifying their structure.\n");
 
@@ -109,16 +97,11 @@ public static class StructuralPatternsDemo
         Console.WriteLine("\n--- Adding Theater Setup ---");
         booking = new SetupDecorator(booking, "Theater");
         booking.DisplayDetails();
-        Console.WriteLine($"\n╔══════════════════════════════════════════════════╗");
-        Console.WriteLine($"║  FINAL TOTAL COST: ${booking.GetCost():F2}                      ║");
-        Console.WriteLine($"╚══════════════════════════════════════════════════╝");
+        Console.WriteLine($"FINAL TOTAL COST: ${booking.GetCost():F2}");
     }
 
     private static void DemonstrateCompositePattern()
     {
-        Console.WriteLine("═══════════════════════════════════════════════════════════════");
-        Console.WriteLine("              COMPOSITE PATTERN DEMONSTRATION");
-        Console.WriteLine("═══════════════════════════════════════════════════════════════");
         Console.WriteLine("\nThe Composite pattern allows treating individual objects and");
         Console.WriteLine("compositions of objects uniformly.\n");
 
@@ -163,10 +146,8 @@ public static class StructuralPatternsDemo
         Console.WriteLine("\n--- Complete Conference Center Hierarchy ---");
         conferenceCenter.DisplayStructure();
 
-        Console.WriteLine($"\n╔══════════════════════════════════════════════════╗");
-        Console.WriteLine($"║  Total Capacity: {conferenceCenter.GetTotalCapacity()} people                    ║");
-        Console.WriteLine($"║  Total Rooms: {conferenceCenter.GetAllRoomCodes().Count}                               ║");
-        Console.WriteLine($"╚══════════════════════════════════════════════════╝");
+        Console.WriteLine($"Total Capacity: {conferenceCenter.GetTotalCapacity()} people                    ║");
+        Console.WriteLine($"Total Rooms: {conferenceCenter.GetAllRoomCodes().Count}                               ║");
 
         // Demonstrate availability check
         var start = DateTime.Now.AddHours(3);
@@ -177,9 +158,6 @@ public static class StructuralPatternsDemo
 
     private static void DemonstrateFacadePattern()
     {
-        Console.WriteLine("═══════════════════════════════════════════════════════════════");
-        Console.WriteLine("                FACADE PATTERN DEMONSTRATION");
-        Console.WriteLine("═══════════════════════════════════════════════════════════════");
         Console.WriteLine("\nThe Facade pattern provides a simplified interface to a");
         Console.WriteLine("complex subsystem, hiding its complexity from clients.\n");
 
@@ -215,7 +193,7 @@ public static class StructuralPatternsDemo
         Console.WriteLine(examBooking);
 
         Console.WriteLine("\n--- Example 3: Enhanced Booking (Facade hides Decorators) ---");
-        var enhancedBooking = facade.CreateEnhancedBooking(
+        var enhancedBooking = BookingSystemFacade.CreateEnhancedBooking(
             simpleBooking,
             includeCatering: true,
             cateringPeople: 80,
@@ -236,9 +214,7 @@ public static class StructuralPatternsDemo
             200);
 
         premiumBooking.DisplayDetails();
-        Console.WriteLine($"\n╔══════════════════════════════════════════════════╗");
-        Console.WriteLine($"║  PREMIUM PACKAGE COST: ${premiumBooking.GetCost():F2}              ║");
-        Console.WriteLine($"╚══════════════════════════════════════════════════╝");
+        Console.WriteLine($"PREMIUM PACKAGE COST: ${premiumBooking.GetCost():F2}");
 
         Console.WriteLine("\n--- Example 5: Room Group Creation (Facade hides Composite) ---");
         var roomGroup = facade.CreateConferenceRoomGroup(
@@ -253,23 +229,19 @@ public static class StructuralPatternsDemo
     }
 
     private static void DemonstrateAllPatterns()
-    {
-        Console.WriteLine("═══════════════════════════════════════════════════════════════");
-        Console.WriteLine("           COMPLETE STRUCTURAL PATTERNS DEMONSTRATION");
-        Console.WriteLine("═══════════════════════════════════════════════════════════════");
+    { 
+        Console.WriteLine("COMPLETE STRUCTURAL PATTERNS DEMONSTRATION");
         Console.WriteLine("\nThis demo shows all three structural patterns working together!\n");
 
         // Use Facade to simplify everything
         var facade = new BookingSystemFacade(UniversityType.Technical);
 
         Console.WriteLine("STEP 1: Using FACADE to create a base booking");
-        Console.WriteLine("─────────────────────────────────────────────────────────────");
         var baseBooking = facade.CreateSeminarBooking("SEMINAR-401");
         Console.WriteLine($"Created: {baseBooking}\n");
 
         Console.WriteLine("STEP 2: Using DECORATOR to enhance the booking");
-        Console.WriteLine("─────────────────────────────────────────────────────────────");
-        var decoratedBooking = facade.CreateEnhancedBooking(
+        var decoratedBooking = BookingSystemFacade.CreateEnhancedBooking(
             baseBooking,
             includeCatering: true,
             cateringPeople: 50,
@@ -283,7 +255,6 @@ public static class StructuralPatternsDemo
         Console.WriteLine($"\nEnhanced Booking Cost: ${decoratedBooking.GetCost():F2}\n");
 
         Console.WriteLine("STEP 3: Using COMPOSITE for multi-room event");
-        Console.WriteLine("─────────────────────────────────────────────────────────────");
         var eventRooms = facade.CreateConferenceRoomGroup(
             "Tech Summit 2025",
             "MAIN-100", "BREAK-200", "BREAK-201", "WORKSHOP-301", "WORKSHOP-302");
@@ -298,7 +269,6 @@ public static class StructuralPatternsDemo
         Console.WriteLine($"All rooms available: {eventRooms.IsAvailable(eventStart, eventEnd)}");
 
         Console.WriteLine("\n\nSTEP 4: Creating premium booking using ALL patterns via FACADE");
-        Console.WriteLine("─────────────────────────────────────────────────────────────");
         var premiumEvent = facade.CreatePremiumConferenceBooking(
             "PREMIUM-HALL",
             DateTime.Now.AddDays(14),
@@ -308,14 +278,10 @@ public static class StructuralPatternsDemo
 
         Console.WriteLine("\nFINAL PREMIUM EVENT DETAILS:");
         premiumEvent.DisplayDetails();
-
-        Console.WriteLine($"\n╔═══════════════════════════════════════════════════════════╗");
-        Console.WriteLine($"║                 COMPLETE EVENT SUMMARY                    ║");
-        Console.WriteLine($"╠═══════════════════════════════════════════════════════════╣");
-        Console.WriteLine($"║  Total Bookings Created: 3                                ║");
-        Console.WriteLine($"║  Premium Event Cost: ${premiumEvent.GetCost():F2}                        ║");
-        Console.WriteLine($"║  Multi-Room Capacity: {eventRooms.GetTotalCapacity()} people                       ║");
-        Console.WriteLine($"╚═══════════════════════════════════════════════════════════╝");
+        
+        Console.WriteLine($"Total Bookings Created: 3");
+        Console.WriteLine($"Premium Event Cost: ${premiumEvent.GetCost():F2}");
+        Console.WriteLine($"Multi-Room Capacity: {eventRooms.GetTotalCapacity()} people");
 
         Console.WriteLine("\n--- Final Registry State ---");
         facade.DisplayAllBookings();

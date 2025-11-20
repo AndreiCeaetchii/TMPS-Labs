@@ -1,15 +1,12 @@
 using UniversityBookingSystem.Entities;
+using UniversityBookingSystem.Interfaces;
 
 namespace UniversityBookingSystem.Decorators;
 
-/// <summary>
-/// Concrete component that wraps the base Booking entity.
-/// This is the base object that decorators will wrap.
-/// </summary>
 public class BaseBookingComponent : IBookingComponent
 {
     private readonly Booking _booking;
-    private const decimal BaseRoomCost = 50.0m; // Base cost per hour
+    private const decimal BaseRoomCost = 50.0m;
 
     public BaseBookingComponent(Booking booking)
     {

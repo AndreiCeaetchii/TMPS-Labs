@@ -1,9 +1,7 @@
+using UniversityBookingSystem.Interfaces;
+
 namespace UniversityBookingSystem.Composite;
 
-/// <summary>
-/// Composite component representing a group of rooms.
-/// Can contain both individual rooms (leaves) and other room groups (composites).
-/// </summary>
 public class RoomGroup : IRoomComponent
 {
     private readonly string _groupName;

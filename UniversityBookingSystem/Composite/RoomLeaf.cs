@@ -1,12 +1,9 @@
 using UniversityBookingSystem.Entities;
+using UniversityBookingSystem.Interfaces;
 using UniversityBookingSystem.Services;
 
 namespace UniversityBookingSystem.Composite;
 
-/// <summary>
-/// Leaf component representing a single room in the composite structure.
-/// Cannot contain other room components.
-/// </summary>
 public class RoomLeaf : IRoomComponent
 {
     private readonly Room _room;

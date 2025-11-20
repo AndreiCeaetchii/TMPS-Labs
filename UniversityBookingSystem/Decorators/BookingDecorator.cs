@@ -1,30 +1,28 @@
+using UniversityBookingSystem.Interfaces;
+
 namespace UniversityBookingSystem.Decorators;
 
-/// <summary>
-/// Abstract base decorator class.
-/// All concrete decorators inherit from this class.
-/// </summary>
 public abstract class BookingDecorator : IBookingComponent
 {
-    protected readonly IBookingComponent _wrappedBooking;
+    protected readonly IBookingComponent WrappedBooking;
 
     protected BookingDecorator(IBookingComponent booking)
     {
-        _wrappedBooking = booking;
+        WrappedBooking = booking;
     }
 
     public virtual string GetDescription()
     {
-        return _wrappedBooking.GetDescription();
+        return WrappedBooking.GetDescription();
     }
 
     public virtual decimal GetCost()
     {
-        return _wrappedBooking.GetCost();
+        return WrappedBooking.GetCost();
     }
 
     public virtual void DisplayDetails()
     {
-        _wrappedBooking.DisplayDetails();
+        WrappedBooking.DisplayDetails();
     }
 }

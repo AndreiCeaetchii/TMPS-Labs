@@ -7,11 +7,6 @@ using UniversityBookingSystem.Services;
 
 namespace UniversityBookingSystem.Facade;
 
-/// <summary>
-/// Facade pattern implementation that provides a simplified interface
-/// to the complex university booking system.
-/// Hides the complexity of factories, builders, directors, and decorators.
-/// </summary>
 public class BookingSystemFacade
 {
     private readonly IUniversityFactory _factory;
@@ -37,13 +32,10 @@ public class BookingSystemFacade
             _ => new TechUniversityFactory()
         };
     }
-
-    /// <summary>
-    /// Simplified method to create a basic room booking.
-    /// </summary>
+    
     public Booking CreateSimpleBooking(string roomCode, RoomTypeEnum roomType, DateTime start, DateTime end, string requestedBy)
     {
-        Room room = roomType switch
+        var room = roomType switch
         {
             RoomTypeEnum.LectureHall => _factory.CreateLectureHall(roomCode),
             RoomTypeEnum.Lab => _factory.CreateLab(roomCode),
@@ -65,35 +57,23 @@ public class BookingSystemFacade
             .RequestedBy(requestedBy)
             .Build();
     }
-
-    /// <summary>
-    /// Simplified method to create an exam booking using the director.
-    /// </summary>
+    
     public Booking CreateExamBooking(string roomCode = "A1")
     {
         return _director.CreateExamBooking(_builder, _factory, roomCode);
     }
-
-    /// <summary>
-    /// Simplified method to create a seminar booking using the director.
-    /// </summary>
+    
     public Booking CreateSeminarBooking(string roomCode = "S1")
     {
         return _director.CreateSeminarBooking(_builder, _factory, roomCode);
     }
-
-    /// <summary>
-    /// Simplified method to create a lab booking using the director.
-    /// </summary>
+    
     public Booking CreateLabBooking(string roomCode = "L1")
     {
         return _director.CreateLabBooking(_builder, _factory, roomCode);
     }
-
-    /// <summary>
-    /// Creates an enhanced booking with additional services using decorators.
-    /// </summary>
-    public IBookingComponent CreateEnhancedBooking(
+    
+    public static IBookingComponent CreateEnhancedBooking(
         Booking baseBooking,
         bool includeCatering = false,
         int cateringPeople = 0,
@@ -127,17 +107,13 @@ public class BookingSystemFacade
 
         return component;
     }
-
-    /// <summary>
-    /// Creates a room group for large events spanning multiple rooms.
-    /// </summary>
+    
     public RoomGroup CreateConferenceRoomGroup(string groupName, params string[] roomCodes)
     {
         var group = new RoomGroup(groupName);
 
         foreach (var code in roomCodes)
         {
-            // Alternate between different room types for variety
             var roomIndex = Array.IndexOf(roomCodes, code);
             var roomTypeIndex = roomIndex % 3;
             var room = roomTypeIndex switch
@@ -152,35 +128,22 @@ public class BookingSystemFacade
 
         return group;
     }
-
-    /// <summary>
-    /// Checks if a room or room group is available for booking.
-    /// </summary>
+    
     public bool CheckAvailability(IRoomComponent roomComponent, DateTime start, DateTime end)
     {
         return roomComponent.IsAvailable(start, end);
     }
-
-    /// <summary>
-    /// Gets all current bookings from the registry.
-    /// </summary>
+    
     public IReadOnlyList<Booking> GetAllBookings()
     {
         return _registry.AllBookings;
     }
-
-    /// <summary>
-    /// Displays all bookings in the system.
-    /// </summary>
+    
     public void DisplayAllBookings()
     {
         _registry.PrintAll();
     }
-
-    /// <summary>
-    /// One-stop method to create a complete premium booking with all features.
-    /// This demonstrates the facade hiding ALL complexity.
-    /// </summary>
+    
     public IBookingComponent CreatePremiumConferenceBooking(
         string roomCode,
         DateTime start,

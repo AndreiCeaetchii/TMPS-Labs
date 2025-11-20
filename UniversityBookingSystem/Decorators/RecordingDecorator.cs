@@ -1,8 +1,7 @@
+using UniversityBookingSystem.Interfaces;
+
 namespace UniversityBookingSystem.Decorators;
 
-/// <summary>
-/// Concrete decorator that adds recording and streaming services to a booking.
-/// </summary>
 public class RecordingDecorator : BookingDecorator
 {
     private readonly bool _liveStreaming;

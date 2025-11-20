@@ -1,8 +1,7 @@
+using UniversityBookingSystem.Interfaces;
+
 namespace UniversityBookingSystem.Decorators;
 
-/// <summary>
-/// Concrete decorator that adds special equipment to a booking.
-/// </summary>
 public class EquipmentDecorator : BookingDecorator
 {
     private readonly List<string> _equipment;
