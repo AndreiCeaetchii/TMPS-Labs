@@ -2,11 +2,11 @@ using UniversityBookingSystem.Interfaces;
 
 namespace UniversityBookingSystem.Decorators;
 
-public abstract class BookingDecorator : IBookingComponent
+public abstract class BaseBookingDecorator : IBookingComponent
 {
     protected readonly IBookingComponent WrappedBooking;
 
-    protected BookingDecorator(IBookingComponent booking)
+    protected BaseBookingDecorator(IBookingComponent booking)
     {
         WrappedBooking = booking;
     }

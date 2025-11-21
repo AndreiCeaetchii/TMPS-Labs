@@ -2,7 +2,7 @@ using UniversityBookingSystem.Interfaces;
 
 namespace UniversityBookingSystem.Decorators;
 
-public class CateringDecorator : BookingDecorator
+public class CateringDecorator : BaseBookingDecorator
 {
     private readonly string _cateringType;
     private readonly int _numberOfPeople;

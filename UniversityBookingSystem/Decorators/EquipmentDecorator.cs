@@ -2,7 +2,7 @@ using UniversityBookingSystem.Interfaces;
 
 namespace UniversityBookingSystem.Decorators;
 
-public class EquipmentDecorator : BookingDecorator
+public class EquipmentDecorator : BaseBookingDecorator
 {
     private readonly List<string> _equipment;
     private const decimal CostPerEquipment = 25.0m;

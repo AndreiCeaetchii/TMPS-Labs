@@ -2,7 +2,7 @@ using UniversityBookingSystem.Interfaces;
 
 namespace UniversityBookingSystem.Decorators;
 
-public class SetupDecorator : BookingDecorator
+public class SetupDecorator : BaseBookingDecorator
 {
     private readonly string _setupType;
     private readonly Dictionary<string, decimal> _setupCosts = new()

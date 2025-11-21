@@ -69,7 +69,7 @@ public static class StructuralPatternsDemo
         };
 
         // Start with base component
-        IBookingComponent booking = new BaseBookingComponent(baseBooking);
+        IBookingComponent booking = new BookingComponent(baseBooking);
 
         Console.WriteLine("--- Base Booking ---");
         booking.DisplayDetails();

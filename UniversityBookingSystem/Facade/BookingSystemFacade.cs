@@ -83,7 +83,7 @@ public class BookingSystemFacade
         string[]? equipment = null,
         string? setupType = null)
     {
-        IBookingComponent component = new BaseBookingComponent(baseBooking);
+        IBookingComponent component = new BookingComponent(baseBooking);
 
         if (includeCatering && cateringPeople > 0)
         {

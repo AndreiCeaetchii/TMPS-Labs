@@ -3,12 +3,12 @@ using UniversityBookingSystem.Interfaces;
 
 namespace UniversityBookingSystem.Decorators;
 
-public class BaseBookingComponent : IBookingComponent
+public class BookingComponent : IBookingComponent
 {
     private readonly Booking _booking;
     private const decimal BaseRoomCost = 50.0m;
 
-    public BaseBookingComponent(Booking booking)
+    public BookingComponent(Booking booking)
     {
         _booking = booking;
     }

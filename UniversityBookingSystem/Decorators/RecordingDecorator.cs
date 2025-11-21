@@ -2,7 +2,7 @@ using UniversityBookingSystem.Interfaces;
 
 namespace UniversityBookingSystem.Decorators;
 
-public class RecordingDecorator : BookingDecorator
+public class RecordingDecorator : BaseBookingDecorator
 {
     private readonly bool _liveStreaming;
     private readonly bool _recording;
